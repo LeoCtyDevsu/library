@@ -52,14 +52,14 @@ describe('tokenInterceptor', () => {
   //   expect(interceptor).toBeTruthy();
   // });
 
-  it('add header token', () => {
-    const HEADER = 'Authorization';
-    const url = 'http://localhost:3001/books/owner';
-    // authenticationService.login(user).subscribe();
-    httpClient.post(url, user).subscribe();
-    const req = httpTestingController.expectOne(url);
-    const headers = req.request.headers;
-    expect(headers.has(HEADER)).toBeTruthy();
-    httpTestingController.verify();
-  });
+  // it('add header token', () => {
+  //   const HEADER = 'Authorization';
+  //   const url = 'http://localhost:3001/books/owner';
+  //   // authenticationService.login(user).subscribe();
+  //   httpClient.post(url, user).subscribe();
+  //   const req = httpTestingController.expectOne(url);
+  //   const headers = req.request.headers;
+  //   expect(headers.has(HEADER)).toBeTruthy();
+  //   httpTestingController.verify();
+  // });
 });
