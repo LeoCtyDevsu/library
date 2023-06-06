@@ -1,0 +1,11 @@
+<div class="dflex flex-column mb-14">
+  <label class="input-label mb-8" [for]="idElement">{{ label }}</label>
+  <select #selectElement [name]="idElement" [id]="idElement" (change)="onChangeEventNotification(selectElement.value)">
+    <option *ngIf="elements.length === 0" [value]="null">
+      No hay elementos.
+    </option>
+    <option *ngFor="let element of elements" trackBy="value" [value]="element.value">
+      {{ element.label }}
+    </option>
+  </select>
+</div>
