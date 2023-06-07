@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterStateSnapshot } from '@angular/router';
 
 export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   return {
@@ -24,4 +25,10 @@ export function click<T>(fixture: ComponentFixture<T>, testId: string): void {
 
 function findEl<T>(fixture: ComponentFixture<T>, testId: string): DebugElement {
   return fixture.debugElement.query(By.css(`[data-testid="${testId}"]`));
+}
+
+export function fakeRouterState(url: string): RouterStateSnapshot {
+  return {
+    url,
+  } as RouterStateSnapshot;
 }

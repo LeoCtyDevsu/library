@@ -12,6 +12,7 @@
         placeholder="Ej. makoto"
         formControlName="userName"
         [errors]="getUserNameControlError()"
+        data-testid="username-input"
       ></app-input>
       <app-input
         ngDefaultControl
@@ -21,6 +22,7 @@
         placeholder="Ej. name@example.com"
         formControlName="email"
         [errors]="getEmailControlError()"
+        data-testid="mail-input"
       ></app-input>
       <app-input
         ngDefaultControl
@@ -30,6 +32,7 @@
         placeholder="*****"
         formControlName="password"
         [errors]="getPasswordControlError()"
+        data-testid="password-input"
       ></app-input>
       <app-input
         ngDefaultControl
@@ -50,6 +53,7 @@
             [idElement]="'category-' + category.id"
             [label]="category.description"
             (onClickEvent)="selectCategory(category)"
+            data-testid="category-checkbox"
           />
         </div>
       </ng-container>
@@ -65,6 +69,7 @@
       label="Registrar"
       (onClickEvent)="register()"
       [disabled]="registerForm.invalid || categoriesSelected.length < 3"
+      data-testid="register-button"
     ></app-button>
   </div>
 </div>

@@ -7,9 +7,9 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
   providedIn: 'root',
 })
 export class ConfigService {
-  protected configSubject: BehaviorSubject<ConfigModel> =
+  public configSubject: BehaviorSubject<ConfigModel> =
     new BehaviorSubject<ConfigModel>({});
-  protected configModel$: Observable<ConfigModel> =
+  public configModel$: Observable<ConfigModel> =
     this.configSubject.asObservable();
 
   constructor(private _httpClient: HttpClient) {}

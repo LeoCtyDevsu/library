@@ -53,7 +53,6 @@ describe('SigninComponent', () => {
       By.css('[data-testid="signin-button"]')
     );
     (signinButton.nativeElement as HTMLButtonElement).click();
-    // expect(passwordInput.nativeElement.value).toBe('Qabalah10.');
   });
 
   it('signin button disabled', () => {

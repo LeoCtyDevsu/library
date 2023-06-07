@@ -31,12 +31,6 @@ describe('authenticationGuard authenticate', () => {
     router = TestBed.inject(Router);
   });
 
-  function fakeRouterState(url: string): RouterStateSnapshot {
-    return {
-      url,
-    } as RouterStateSnapshot;
-  }
-
   it('be created', () => {
     expect(executeGuard).toBeTruthy();
   });

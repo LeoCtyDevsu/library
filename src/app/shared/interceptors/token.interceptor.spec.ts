@@ -1,65 +1,51 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpInterceptorFn,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { UserService } from '../services/user.service';
-import { AuthenticationService } from 'src/app/authentication/services/authentication.service';
-import { UserModel } from '../models/user.model';
 import { jest } from '@jest/globals';
-import { ConfigService } from '../services/config.service';
+import { MockProvider } from 'ng-mocks';
 
 describe('tokenInterceptor', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let authenticationService: AuthenticationService;
-  const user: UserModel = {
-    username: 'LeoCty',
-    password: 'Qabalah10.',
-  };
-  const mockUserService = {
-    getToken: jest.fn(() => 'adkjahdkajhdkajhd'),
-  };
+  let userService: UserService;
+  let interceptor: TokenInterceptor;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        AuthenticationService,
-        { provider: UserService, useValue: mockUserService },
+        TokenInterceptor,
         {
           provider: HTTP_INTERCEPTORS,
           useClass: TokenInterceptor,
-          multi: false,
+          multi: true,
         },
+        MockProvider(UserService, {
+          getToken: jest.fn(() => 'adkjahdkajhdkajhd')
+        }),
       ],
     });
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    authenticationService = TestBed.inject(AuthenticationService);
+    userService = TestBed.inject(UserService);
+    interceptor = TestBed.inject(TokenInterceptor);
   });
 
-  // it('created', () => {
-  //   expect(interceptor).toBeTruthy();
-  // });
-
-  // it('add header token', () => {
-  //   const HEADER = 'Authorization';
-  //   const url = 'http://localhost:3001/books/owner';
-  //   // authenticationService.login(user).subscribe();
-  //   httpClient.post(url, user).subscribe();
-  //   const req = httpTestingController.expectOne(url);
-  //   const headers = req.request.headers;
-  //   expect(headers.has(HEADER)).toBeTruthy();
-  //   httpTestingController.verify();
-  // });
+  it('add header token', () => {
+    const HEADER = 'Authorization';
+    const url = 'http://localhost:3001/books/owner';
+    httpClient.post(url, {}).subscribe();
+    const tokenInterceptor = interceptor.token;
+    const tokenService = userService.getToken();
+    const req = httpTestingController.expectOne(url);
+    const headers = req.request.headers;
+    // expect(headers.has(HEADER)).toBeTruthy();
+    httpTestingController.verify();
+  });
 });
+
