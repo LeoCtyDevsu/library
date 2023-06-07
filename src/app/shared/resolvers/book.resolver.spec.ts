@@ -1,5 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, convertToParamMap } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  convertToParamMap,
+} from '@angular/router';
 import { jest } from '@jest/globals';
 import { bookResolver } from './book.resolver';
 import { BookService } from 'src/app/library/services/book.service';
@@ -34,7 +39,9 @@ describe('bookResolver', () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: {snapshot: {paramMap: convertToParamMap({id: 'one-id'})}}
+          useValue: {
+            snapshot: { paramMap: convertToParamMap({ id: 'one-id' }) },
+          },
         },
         MockProvider(BookService, {
           getBook: jest.fn(() => mockFunGetBook('')),
@@ -51,6 +58,8 @@ describe('bookResolver', () => {
   it('resolve a book', () => {
     let mockUrl = '/admin/books/view/12122';
     let book = executeResolver(route.snapshot, fakeRouterState(mockUrl));
-    expect(book).toBe(mockBook);
+    (book as Observable<BookModel>).subscribe((b) => {
+      expect(b).toEqual(mockBook);
+    });
   });
 });

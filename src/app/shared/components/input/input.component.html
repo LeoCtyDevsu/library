@@ -8,6 +8,7 @@
     [value]="value"
     [placeholder]="placeholder"
     (keyup)="onKeyupEventNotification(inputElement.value)"
+    data-testid="input-custom"
   />
   <small class="invalid-control" *ngIf="errors || formParent?.hasError">{{
     errorMenssage

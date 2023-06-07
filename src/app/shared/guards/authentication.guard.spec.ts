@@ -3,12 +3,13 @@ import {
   ActivatedRouteSnapshot,
   CanActivateFn,
   Router,
-  RouterStateSnapshot,
 } from '@angular/router';
 import { authenticationGuard } from './authentication.guard';
 import { UserService } from '../services/user.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect, jest } from '@jest/globals';
+import { fakeRouterState } from '../helpers/testing.helper';
+import { MockProvider } from 'ng-mocks';
 
 describe('authenticationGuard authenticate', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
@@ -26,7 +27,11 @@ describe('authenticationGuard authenticate', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [{ provider: UserService, useValue: mockUserService }],
+      providers: [
+        MockProvider(UserService, {
+          getToken: jest.fn(() => 'adkjahdkajhdkajhd'),
+        }),
+      ],
     });
     router = TestBed.inject(Router);
   });
@@ -35,9 +40,9 @@ describe('authenticationGuard authenticate', () => {
     expect(executeGuard).toBeTruthy();
   });
 
-  // it('Method canActivate returns true', () => {
-  //   let mockUrl = '/admin/bokks';
-  //   let canActivate = executeGuard(dummyRoute, fakeRouterState(mockUrl));
-  //   expect(canActivate).toBeTruthy();
-  // });
+  it('Method canActivate returns true', () => {
+    let mockUrl = '/admin/books';
+    let canActivate = executeGuard(dummyRoute, fakeRouterState(mockUrl));
+    expect(canActivate).toBeTruthy();
+  });
 });

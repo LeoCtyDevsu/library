@@ -17,8 +17,9 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   };
 }
 
-export function click<T>(fixture: ComponentFixture<T>, testId: string): void {
+export function click<T>(fixture: ComponentFixture<T>, testId: string, value?: any): void {
   const element = findEl(fixture, testId);
+  element.nativeElement.value = value;
   const event = makeClickEvent(element.nativeElement);
   element.triggerEventHandler('click', event);
 }
