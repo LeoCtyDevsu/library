@@ -18,7 +18,12 @@ export class SpinnerComponent implements OnDestroy {
         this.show = state;
       });
   }
+
   ngOnDestroy(): void {
+    this.unSubscribeAll();
+  }
+
+  unSubscribeAll() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

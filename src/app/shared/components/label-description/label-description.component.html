@@ -1,5 +1,9 @@
 <div class="dflex justify-content-start align-items-start mb-8">
-  <label class="label-title mr-8">{{label}}:</label>
-  <p *ngIf="!isURL" class="description-title">{{description}}</p>
-  <a *ngIf="isURL" class="description-title" [href]="description">{{description}}</a>
+  <label [id]="idElement" class="label-title mr-8" data-testid="label-custom"
+    >{{ label }}:</label
+  >
+  <p *ngIf="!isURL" class="description-title" data-testid="p-custom">{{ description }}</p>
+  <a *ngIf="isURL" class="description-title" [href]="description" data-testid="a-custom">{{
+    description
+  }}</a>
 </div>

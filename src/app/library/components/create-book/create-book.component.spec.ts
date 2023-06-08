@@ -42,7 +42,8 @@ describe('CreateBookComponent', () => {
     fixture.detectChanges();
   });
 
-  it('create', () => {
-    expect(component).toBeTruthy();
+  it('edit book', () => {
+    const book = component.book;
+    expect(book).toBeTruthy();
   });
 });

@@ -44,4 +44,9 @@ describe('DetailBookComponent', () => {
   it('create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('book detail', () => {
+    const book = component.book;
+    expect(book).toBeTruthy();
+  });
 });
