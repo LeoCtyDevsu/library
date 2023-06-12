@@ -54,6 +54,8 @@ export class InputComponent implements OnChanges, ControlValueAccessor {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.warn(this.errors);
+    console.warn(changes);
     switch (true) {
       case this.errors?.['required']: {
         this.errorMenssage = `Campo: ${this.label} es requerido.`;

@@ -32,7 +32,7 @@ describe('tokenInterceptor', () => {
         }),
         TokenInterceptor,
         {
-          provider: HTTP_INTERCEPTORS,
+          provide: HTTP_INTERCEPTORS,
           useClass: TokenInterceptor,
           multi: true,
         },

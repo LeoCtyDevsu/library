@@ -7,11 +7,13 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { ConfigModule, ConfigService } from './shared/services/config.service';
 import {
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
 import { errorInterceptor } from './shared/interceptors/error.interceptor';
-import { tokenInterceptor } from './shared/interceptors/token.interceptor';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+// import { tokenInterceptor } from './shared/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent, BlankComponent, LayoutComponent],
@@ -19,7 +21,12 @@ import { tokenInterceptor } from './shared/interceptors/token.interceptor';
   providers: [
     ConfigService,
     ConfigModule.init(),
-    provideHttpClient(withInterceptors([errorInterceptor, tokenInterceptor])),
+    // provideHttpClient(withInterceptors([errorInterceptor, tokenInterceptor])),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
